@@ -1,16 +1,16 @@
-import day01
+import day02
 import gleam/int
 import gleam/io
 import simplifile
 
 pub fn main() {
-  let input = case simplifile.read("src/day01.txt") {
+  let input = case simplifile.read("src/day02.txt") {
     Ok(s) -> s
     Error(_) -> panic as "Failed to read input!"
   }
-  time("Part 1: ", fn() { day01.part1(input) })
+  time("Part 1: ", fn() { day02.part1(input) })
   io.println("")
-  time("Part 2: ", fn() { day01.part2(input) })
+  time("Part 2: ", fn() { day02.part2(input) })
 }
 
 fn time(label: String, func: fn() -> Int) {
