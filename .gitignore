@@ -1,5 +1,6 @@
+.clangd
 .direnv/
 .zig-cache/
 zig-out/
 
-.clangd
+inputs/

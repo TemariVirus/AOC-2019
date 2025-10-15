@@ -25,7 +25,7 @@ pub fn build(b: *std.Build) void {
             "-Wextra",
             "-Wpedantic",
             "-Werror",
-            "-std=c17",
+            "-std=gnu17",
         },
     });
 

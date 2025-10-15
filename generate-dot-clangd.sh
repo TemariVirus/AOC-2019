@@ -1,15 +1,12 @@
 #!/usr/bin/env sh
 
-ZIGPATH=$(which zig)
-ZIGPATH=$(dirname -- $ZIGPATH)
-ZIGPATH=$(dirname -- $ZIGPATH)
-ZIGLIB="$ZIGPATH/lib/zig"
+ZIGLIB=$(zig env | grep lib_dir | cut -d'"' -f2)
 
 echo -n "CompileFlags:
   Add:
+    - \"-I$ZIGLIB/include\"
+    - \"-I$ZIGLIB/libc/glibc/include\"
     - \"-I$ZIGLIB/libc/include\"
-    - \"-I$ZIGLIB/libcxx/include\"
-    - \"-I$ZIGLIB/libcxx/libc/include\"
-    - \"-I$ZIGLIB/libcxxabi/include\"
-    - \"-std=c17\"
+    - \"-I$ZIGLIB/libc/include/generic-glibc/\"
+    - \"-std=gnu17\"
 " > ./.clangd

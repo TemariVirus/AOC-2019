@@ -6,6 +6,8 @@ I have a uni module about to test C, so that means I need to git gud.
 
 Run `nix develop` to enter a nix shell with Zig installed, or install Zig 0.15.1 manually.
 
+Add your input to `inputs/<num>.txt`, where `<num>` is the 2-digit day number, e.g. `01` for Day 1.
+
 Then run:
 
 ```bash
