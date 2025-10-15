@@ -22,12 +22,12 @@ pub fn build(b: *std.Build) void {
         },
         .flags = &.{
             "-Wall",
-            "-Wextra",
-            "-Wpedantic",
             "-Werror",
             "-std=gnu17",
         },
     });
+
+    exe.root_module.addIncludePath(b.path("vendor"));
 
     b.installArtifact(exe);
 
