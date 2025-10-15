@@ -1,27 +1,28 @@
 #include <stdint.h>
 #include <stdio.h>
 
-uint64_t part1(void) {
-    FILE* fptr = fopen("inputs/01.txt", "r");
-    uint64_t sum = 0, mass;
-    while (fscanf(fptr, "%lu", &mass) != -1) {
+char input_path[] = "inputs/01.txt";
+
+int64_t part1(void) {
+    FILE* fp = fopen(input_path, "r");
+    int64_t sum = 0, mass;
+    while (fscanf(fp, "%li", &mass) != -1) {
         sum += (mass / 3) - 2;
     }
-    fclose(fptr);
+    fclose(fp);
     return sum;
 }
 
-uint64_t part2(void) {
-    FILE* fptr = fopen("inputs/01.txt", "r");
-    uint64_t sum = 0;
-    int64_t mass;
-    while (fscanf(fptr, "%li", &mass) != -1) {
+int64_t part2(void) {
+    FILE* fp = fopen(input_path, "r");
+    int64_t sum = 0, mass;
+    while (fscanf(fp, "%li", &mass) != -1) {
         mass = (mass / 3) - 2;
         while (mass > 0) {
             sum += mass;
             mass = (mass / 3) - 2;
         }
     }
-    fclose(fptr);
+    fclose(fp);
     return sum;
 }

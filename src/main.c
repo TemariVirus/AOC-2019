@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <time.h>
 
-extern uint64_t part1(void);
-extern uint64_t part2(void);
+extern int64_t part1(void);
+extern int64_t part2(void);
 
 void print_duration(struct timespec start, struct timespec end) {
     double total_seconds = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
@@ -27,13 +27,13 @@ int main(void) {
     struct timespec start, end;
 
     clock_gettime(CLOCK_MONOTONIC, &start);
-    uint64_t ans1 = part1();
+    int64_t ans1 = part1();
     clock_gettime(CLOCK_MONOTONIC, &end);
     printf("Part 1: %lu\n", ans1);
     print_duration(start, end);
 
     clock_gettime(CLOCK_MONOTONIC, &start);
-    uint64_t ans2 = part2();
+    int64_t ans2 = part2();
     clock_gettime(CLOCK_MONOTONIC, &end);
     printf("Part 2: %lu\n", ans2);
     print_duration(start, end);
