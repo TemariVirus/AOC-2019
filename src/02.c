@@ -6,7 +6,7 @@
 #define TYPED(THING) i_##THING
 #include "list.c"
 
-char input_path[] = "inputs/02.txt";
+extern char input_path[];
 
 void get_program(FILE* fp, struct i_list* program) {
     int64_t val;

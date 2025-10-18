@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-char input_path[] = "inputs/01.txt";
+extern char input_path[];
 
 int64_t part1(void) {
     FILE* fp = fopen(input_path, "r");

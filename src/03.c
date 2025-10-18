@@ -5,7 +5,7 @@
 #include <hashmap.h>
 #include <wyhash.h>
 
-char input_path[] = "inputs/03.txt";
+extern char input_path[];
 
 struct Tile {
     int32_t x;
