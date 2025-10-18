@@ -54,6 +54,18 @@ void TYPED(list_append)(struct TYPED(list) * self, TYPE item) {
     self->items[self->length++] = item;
 }
 
+TYPE TYPED(list_remove)(struct TYPED(list) * self, size_t index) {
+    if (index >= self->length) {
+        printf("Index out of bounds: %zu >= %zu\n", index, self->length);
+        exit(1);
+    }
+    TYPE item = self->items[index];
+    memmove(&self->items[index], &self->items[index + 1],
+            (self->length - index - 1) * sizeof(TYPE));
+    self->length--;
+    return item;
+}
+
 struct TYPED(list) TYPED(list_clone)(struct TYPED(list) * self) {
     if (!self->items) {
         return TYPED(list_init)();
