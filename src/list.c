@@ -7,21 +7,21 @@
 #define TYPED(THING) THING
 #endif
 
-struct TYPED(list) {
+typedef struct {
     TYPE* items;
     size_t length;
     size_t capacity;
-};
+} TYPED(list);
 
-struct TYPED(list) TYPED(list_init)(void) {
-    return (struct TYPED(list)){
+TYPED(list) TYPED(list_init)(void) {
+    return (TYPED(list)){
         .items = NULL,
         .length = 0,
         .capacity = 0,
     };
 }
 
-void TYPED(list_free)(struct TYPED(list) * self) {
+void TYPED(list_free)(TYPED(list) * self) {
     if (self->items) {
         free(self->items);
         self->items = NULL;
@@ -30,7 +30,9 @@ void TYPED(list_free)(struct TYPED(list) * self) {
     self->capacity = 0;
 }
 
-TYPE TYPED(list_get)(struct TYPED(list) * self, size_t index) {
+void TYPED(list_clear)(TYPED(list) * self) { self->length = 0; }
+
+TYPE TYPED(list_get)(const TYPED(list) * self, size_t index) {
     if (index >= self->length) {
         printf("Index out of bounds: %zu >= %zu\n", index, self->length);
         exit(1);
@@ -38,7 +40,7 @@ TYPE TYPED(list_get)(struct TYPED(list) * self, size_t index) {
     return self->items[index];
 }
 
-void TYPED(list_set)(struct TYPED(list) * self, size_t index, TYPE value) {
+void TYPED(list_set)(TYPED(list) * self, size_t index, TYPE value) {
     if (index >= self->length) {
         printf("Index out of bounds: %zu >= %zu\n", index, self->length);
         exit(1);
@@ -46,7 +48,7 @@ void TYPED(list_set)(struct TYPED(list) * self, size_t index, TYPE value) {
     self->items[index] = value;
 }
 
-void TYPED(list_append)(struct TYPED(list) * self, TYPE item) {
+void TYPED(list_append)(TYPED(list) * self, TYPE item) {
     if (self->length >= self->capacity) {
         self->capacity = self->capacity ? self->capacity * 2 : 4;
         self->items = realloc(self->items, self->capacity * sizeof(TYPE));
@@ -54,7 +56,15 @@ void TYPED(list_append)(struct TYPED(list) * self, TYPE item) {
     self->items[self->length++] = item;
 }
 
-TYPE TYPED(list_remove)(struct TYPED(list) * self, size_t index) {
+TYPE TYPED(list_pop)(TYPED(list) * self) {
+    if (self->length == 0) {
+        printf("Pop from empty list\n");
+        exit(1);
+    }
+    return self->items[--self->length];
+}
+
+TYPE TYPED(list_remove)(TYPED(list) * self, size_t index) {
     if (index >= self->length) {
         printf("Index out of bounds: %zu >= %zu\n", index, self->length);
         exit(1);
@@ -66,13 +76,13 @@ TYPE TYPED(list_remove)(struct TYPED(list) * self, size_t index) {
     return item;
 }
 
-struct TYPED(list) TYPED(list_clone)(struct TYPED(list) * self) {
+TYPED(list) TYPED(list_clone)(const TYPED(list) * self) {
     if (!self->items) {
         return TYPED(list_init)();
     }
     TYPE* new_items = malloc(self->length * sizeof(TYPE));
     memcpy(new_items, self->items, self->length * sizeof(TYPE));
-    return (struct TYPED(list)){
+    return (TYPED(list)){
         .items = new_items,
         .length = self->length,
         .capacity = self->length,
